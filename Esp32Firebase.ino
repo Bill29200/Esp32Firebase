@@ -13,14 +13,14 @@
 #include "addons/RTDBHelper.h"
 /* Constant to need ........................................................................*/
 // Insert your network credentials
-#define WIFI_SSID "LAPOSTEMOBILE-8a90"
-#define WIFI_PASSWORD "QNPDMX62VWHQ"
+#define WIFI_SSID "network"
+#define WIFI_PASSWORD "password"
 
 // Insert Firebase project API Key
-#define API_KEY "AIzaSyCAkYpMzW-e5auKLQqVozj5qpluFeWyg70"
+#define API_KEY "firebase api key"
 
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "https://esp32fire0-default-rtdb.europe-west1.firebasedatabase.app/" 
+#define DATABASE_URL "firebase database url" 
 
 //Define Firebase Data object
 FirebaseData fbdo;
@@ -77,40 +77,22 @@ void loop(){
     sendDataPrevMillis = millis();
     count++;
 
-   
-    
-    // Write an Int number on the database path test/name
-    if (Firebase.RTDB.pushString(&fbdo, "test/name", "bill")){
-      Serial.println("PASSED");
-      Serial.println("PATH: " + fbdo.dataPath());
-      Serial.println("TYPE: " + fbdo.dataType());
-    }
-    else {
-      Serial.println("FAILED");
-      Serial.println("REASON: " + fbdo.errorReason());
-    }
-    
-    
-    // Write an Float number on the database path test/firstname
-    if (Firebase.RTDB.pushString(&fbdo, "test/firstname", "Mybill")){
-      Serial.println("PASSED");
-      Serial.println("PATH: " + fbdo.dataPath());
-      Serial.println("TYPE: " + fbdo.dataType());
-    }
-    else {
-      Serial.println("FAILED");
-      Serial.println("REASON: " + fbdo.errorReason());
-    }
+    FirebaseJson json ;
+    json.add("nom","kadjouh");
+    json.add("prenom","nabil");
+    json.add("age",count);
 
-    // Write an Float number on the database path test/age
-    if (Firebase.RTDB.pushInt(&fbdo, "test/age", count)){
-      Serial.println("PASSED");
-      Serial.println("PATH: " + fbdo.dataPath());
-      Serial.println("TYPE: " + fbdo.dataType());
-    }
-    else {
-      Serial.println("FAILED");
-      Serial.println("REASON: " + fbdo.errorReason());
-    }
-  }
+    if (Firebase.RTDB.pushJSON(&fbdo, " person" , &json)) 
+       {
+           Serial.println("PASSED");
+           Serial.println("PATH: " + fbdo.dataPath());
+           Serial.println("TYPE: " + fbdo.dataType()) ;
+      } else 
+      {
+         Serial.println("FAILED");
+          Serial.println("REASON: " + fbdo.errorReason());
+      }
+    
+  }  
+  
 }
