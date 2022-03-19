@@ -20,7 +20,7 @@
 #define API_KEY "apikey"
 
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "databaseURL" 
+#define DATABASE_URL "database URL" 
 
 //Define Firebase Data object
 FirebaseData fbdo;
@@ -98,9 +98,9 @@ void setup(){
 /*...............................................................................*/
 void loop()
    {
-   //printLocalTime();
    
-  if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 20000 || sendDataPrevMillis == 0)){
+   
+  if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000000 || sendDataPrevMillis == 0)){
     sendDataPrevMillis = millis();
     count++;
 
@@ -112,18 +112,23 @@ void loop()
       
   } else
   {
-     
+     char date[25];
+     strftime(date,25, "%A  %d/%m/%Y", &timeinfo);
      //.......
-     char nomJour[10];
+   /*  char nomJour[10];
      strftime(nomJour,10, "%A", &timeinfo);
      char jour[3];
      strftime(jour,3, "%d", &timeinfo);
      char mois[3];
      strftime(mois,3, "%m", &timeinfo);
      char annee[6];
-     strftime(annee,6, "%Y", &timeinfo);
+     strftime(annee,6, "%Y", &timeinfo);*/
 
-    char heures[3];
+
+     char temps[11];
+     strftime(temps,11, "%I:%M:%S", &timeinfo);
+     
+   /* char heures[3];
      strftime(heures,3, "%I", &timeinfo);
      
      char minutes[3];
@@ -132,32 +137,12 @@ void loop()
      char secondes[3];
      strftime(secondes,3, "%S", &timeinfo);
 
-     
-    json.add("nom","kadjouh");
-    json.add("prenom","nabil");
-    json.add("age",count);
-    
-    json.add("nom du jour",nomJour);
-    json.add("jour",jour);
-    json.add("mois",mois);
-    json.add("annee",annee);
+     */
+    json.add("Nombre",count); 
+    json.add("date",date);
+    json.add("temps",temps);
 
-    json.add("heures",heures);
-    json.add("minutes",minutes);
-    json.add("secondes",secondes);
-     
-  /*   strcat(nomJour,strcat(" ",strcat(jour,strcat("/",strcat(mois,strcat("/",annee))))));
-    json.add("date", nomJour);*/
     
-    /*json.add("date",strcat(nomJour,strcat(" ",strcat(jour,strcat("/",strcat(mois,strcat("/",annee)))))));*/
-    
-  /*  */
-    
- /*  json.add("temps",strcat(strcat(strcat(strcat(heures,":"),minutes),":"),secondes));*/
-   /* json.add("date",strcat(strcat(strcat(strcat(jour,"/"),mois),"/"),annee));*/
-    
-  
-  
   }
 
     ////////////////////////////////////////////////////////////
